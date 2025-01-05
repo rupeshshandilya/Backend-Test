@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 app.use(cors({
-  origin: ['http://192.168.1.37:8081'],
+  origin: ['*'],
   methods: ["POST"],
   credentials: true
 }))
