@@ -5,6 +5,14 @@ import { LoggerService } from 'src/logger/logger.service';
 export class AlgorithmService {
   constructor(private readonly loggerService: LoggerService) {}
 
+  /**
+   * Performs a binary search on a sorted array to find the target value.
+   * Logs the execution details using the logger service.
+   *
+   * @param inputArray - The sorted array in which to search
+   * @param target - The value to find
+   * @returns The index of the target value if found, otherwise -1
+   */
   binarySearch(inputArray: number[], target: number) {
     try {
       let startIndex = 0;
@@ -26,6 +34,7 @@ export class AlgorithmService {
         }
       }
 
+      // Log algorithm execution details
       this.loggerService.logAlgorithmExecution(
         'Binary Search',
         { array: inputArray, target },
@@ -38,7 +47,13 @@ export class AlgorithmService {
     }
   }
 
-  //   Quick Sort Algo
+  /**
+   * Sorts an array using the Quick Sort algorithm.
+   * Logs the sorted output using the logger service.
+   *
+   * @param inputArray - The array to be sorted
+   * @returns The sorted array
+   */
   quickSort(inputArray: number[]) {
     try {
       if (inputArray.length === 0) {
@@ -47,6 +62,7 @@ export class AlgorithmService {
 
       this.quickSortHelper(inputArray, 0, inputArray.length - 1);
 
+      // Log algorithm execution details
       this.loggerService.logAlgorithmExecution(
         'Quick Sorts',
         { array: inputArray },
@@ -59,6 +75,13 @@ export class AlgorithmService {
     }
   }
 
+  /**
+   * Recursively sorts an array using the Quick Sort algorithm.
+   *
+   * @param inputArray - The array to be sorted
+   * @param startIndex - The starting index of the sorting range
+   * @param endIndex - The ending index of the sorting range
+   */
   private quickSortHelper(
     inputArray: number[],
     startIndex: number,
@@ -68,17 +91,26 @@ export class AlgorithmService {
       return;
     }
 
+    // Find pivot index and partition the array
     let pivotIndex: number = this.findPivotIndex(
       inputArray,
       startIndex,
       endIndex,
     );
 
-    // Sort left and right partitions
+    // Recursively sort the left and right partitions
     this.quickSortHelper(inputArray, startIndex, pivotIndex - 1);
     this.quickSortHelper(inputArray, pivotIndex + 1, endIndex);
   }
 
+  /**
+   * Finds the pivot index for Quick Sort and partitions the array around it.
+   *
+   * @param inputArray - The array to partition
+   * @param startIndex - The starting index of the range
+   * @param endIndex - The ending index of the range
+   * @returns The index of the pivot element
+   */
   private findPivotIndex(
     inputArray: number[],
     startIndex: number,
@@ -87,13 +119,14 @@ export class AlgorithmService {
     let pivot: number = inputArray[startIndex];
     let count: number = 0;
 
-    // Find the number of values less than the pivot
+    // Count elements smaller than or equal to the pivot
     for (let index = startIndex + 1; index <= endIndex; index++) {
       if (inputArray[index] <= pivot) {
         count++;
       }
     }
 
+    // Move pivot to its correct position
     let pivotIndex = startIndex + count;
     [inputArray[pivotIndex], inputArray[startIndex]] = [
       inputArray[startIndex],
@@ -103,6 +136,7 @@ export class AlgorithmService {
     let index1: number = startIndex;
     let index2: number = endIndex;
 
+    // Partition the array around the pivot
     while (index1 < pivotIndex && index2 > pivotIndex) {
       while (inputArray[index1] <= pivot) {
         index1++;
