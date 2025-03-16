@@ -45,7 +45,7 @@ export class AlgorithmService {
 
       // Log algorithm execution details
       this.loggerService.logAlgorithmExecution(
-        'Binary Search',
+        'binary-search',
         { array: inputArray, target },
         { index: output },
       );
@@ -73,7 +73,7 @@ export class AlgorithmService {
 
       // Log algorithm execution details
       this.loggerService.logAlgorithmExecution(
-        'Quick Sorts',
+        'quick-sort',
         { array: inputArray },
         { sortedArray: [...inputArray] },
       );
@@ -196,7 +196,7 @@ export class AlgorithmService {
 
       // Log algorithm execution details
       this.loggerService.logAlgorithmExecution(
-        'Breadth-First Search (BFS)',
+        'bfs',
         { graph: adj },
         { traversalOrder: res },
       );

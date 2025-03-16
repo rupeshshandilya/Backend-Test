@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
 
 /**
  * Bootstrap function to initialize the NestJS application.
@@ -8,9 +9,10 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const PORT = process.env.PORT ?? 3000;
+  const logger = new Logger('Main');
 
   await app.listen(PORT);
 
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  logger.log(`Listening on ${await app.getUrl()}`);
 }
 bootstrap();
