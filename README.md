@@ -3,7 +3,7 @@
 </p>
 
 ## Description
-Digantara Test is a backend application built with NestJS, Prisma ORM, and PostgreSQL. It provides APIs for executing algorithms like Quick Sort, Binary Search and Breadth First Search, while logging each API call with algorithm name, input, and output for tracking and analysis. The project follows a modular structure for scalability and maintainability
+Digantara Test is a backend application built with NestJS, Prisma ORM, and PostgreSQL. It provides APIs for executing algorithms like Quick Sort, Binary Search, and Breadth-First Search (BFS), while logging each API call with algorithm name, input, and output for tracking and analysis. The project follows a modular structure for scalability and maintainability
 
 
 ## Design Decision
@@ -13,7 +13,7 @@ This section explains the key design choices made while developing this Algorith
 #### **Architecture**
 The project follows a modular architecture, making it scalable and maintainable.
 
-- **Algorithm Module**: Handles algorithm execution logic (Binary Search & Quick Sort).
+- **Algorithm Module**: Handles algorithm execution logic (Binary Search, Quick Sort & BFS).
 - **Logger Module**: Centralized logging service to track executed algorithms.
 - **Prisma ORM**: Provides efficient database interactions with PostgreSQL.
 - **DTOs & Validation**: Ensures API input is well-structured using class-validator.
@@ -96,6 +96,18 @@ inputArray: number[];
 | `inputArray`      | `number[]` | **Required**. The array to be sorted. |
 
 - Returns the sorted array using the Quick Sort algorithm
+
+#### Breadth-First Search (BFS)
+
+```
+  POST /algorithm/bfs
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `adjacencyList`      | `number[][]` | **Required**. The adjacency list representation of the graph. |
+
+- Returns the BFS traversal order of the graph.
 
 #### Logger APIs
 
