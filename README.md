@@ -5,6 +5,10 @@
 ## Description
 Digantara Test is a backend application built with NestJS, Prisma ORM, and PostgreSQL. It provides APIs for executing algorithms like Quick Sort, Binary Search, and Breadth-First Search (BFS), while logging each API call with algorithm name, input, and output for tracking and analysis. The project follows a modular structure for scalability and maintainability
 
+## Base URL
+```bash
+https://backend-test-3qks.onrender.com
+```
 
 ## Design Decision
 
@@ -231,7 +235,7 @@ To run this project, you will need to add the following environment variables to
 ### **1. Clone the Repository**  
 
 ```bash
-git clone https://github.com/your-username/digantara-test.git
+git clone https://github.com/rupeshshandilya/Backend-Test.git
 cd digantara-test
 ```
 
