@@ -85,6 +85,23 @@ inputArray: number[];
 
 - Returns the index of the target value if found, otherwise -1.
 
+**Request Body:**
+```json
+{
+  "inputArray": [1, 3, 5, 7, 9],
+  "target": 5
+}
+```
+**Response:**
+```json
+{
+  "algorithmName": "binary-search",
+  "input": { "inputArray": [1, 3, 5, 7, 9], "target": 5 },
+  "output": 2,
+  "createdAt": "2025-03-16T12:34:56.789Z"
+}
+```
+
 #### Quick Sort
 
 ```
@@ -96,6 +113,23 @@ inputArray: number[];
 | `inputArray`      | `number[]` | **Required**. The array to be sorted. |
 
 - Returns the sorted array using the Quick Sort algorithm
+
+
+**Request Body:**
+```json
+{
+  "inputArray": [9, 3, 7, 1, 5]
+}
+```
+**Response:**
+```json
+{
+  "algorithmName": "Quick Sort",
+  "input": { "inputArray": [9, 3, 7, 1, 5] },
+  "output": [1, 3, 5, 7, 9],
+  "createdAt": "2025-03-16T12:35:10.123Z"
+}
+```
 
 #### Breadth-First Search (BFS)
 
@@ -109,6 +143,24 @@ inputArray: number[];
 
 - Returns the BFS traversal order of the graph.
 
+**Request Body:**
+```json
+{
+  "adjacencyList": [ [2, 3, 1], [0],
+    [0, 4], [0], [2]],
+}
+```
+**Response:**
+```json
+{
+  "algorithmName": "BFS",
+  "input": { "adjacencyList": { [ [2, 3, 1], [0],
+    [0, 4], [0], [2]] },
+  "output": [0 2 3 1 4 ],
+  "createdAt": "2025-03-16T12:36:20.567Z"
+}
+```
+
 #### Logger APIs
 
 #### GET ALL LOGS
@@ -117,6 +169,24 @@ inputArray: number[];
   GET /logger
 ```
 - Retrieves all logs of algorithm executions.
+
+**Response:**
+```json
+[
+  {
+    "id": "8eb4a2ef-a608-449a-9c6d-1aef52c69e44",
+    "algorithmName": "binary-search",
+    "input": {
+      "array": [10,20,30,40,50,60],
+      "target": 50
+    },
+    "output": {
+      "index": 4
+    },
+    "createdAt": "2025-03-16T22:02:03.459Z"
+  }
+]
+```
 
 #### Get Logs by Algorithm Name
 
@@ -129,6 +199,25 @@ inputArray: number[];
 | `algorithmName`      | `string` | **Required**. Name of the algorithm to filter logs. |
 
 - Returns logs of executions filtered by the algorithm name.
+
+**Response:**
+```json
+[
+  {
+    "id": "d35bf7d7-c55c-44bb-bbbc-8fc826b5e4c0",
+    "algorithmName": "binary-search",
+    "input": {
+      "array": [10,20,30,40,50,60],
+      "target": 50
+    },
+    "output": {
+      "index": 4
+    },
+    "createdAt": "2025-03-16T22:46:57.986Z"
+  }
+]
+```
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
