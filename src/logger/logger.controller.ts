@@ -1,6 +1,5 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { LoggerService } from './logger.service';
-import { GetLogsDto } from './dto/logger.dto';
 
 /**
  * Controller for handling log-related requests.
@@ -22,11 +21,11 @@ export class LoggerController {
   /**
    * Retrieves logs filtered by algorithm name.
    *
-   * @param getLogsDto - DTO containing the algorithm name to filter logs.
-   * @returns A list of logs that match the specified algorithm name.
+   * @param algorithmName - The name of the algorithm extracted from the URL parameter.
+   * @returns A list of logs matching the specified algorithm name.
    */
-  @Get('by-name')
-  async getLogs(@Body() getLogsDto: GetLogsDto) {
-    return this.loggerService.getLogsByAlgorithmName(getLogsDto.algorithmName);
+  @Get(':algorithmName')
+  async getLogs(@Param('algorithmName') algorithmName: string) {
+    return this.loggerService.getLogsByAlgorithmName(algorithmName);
   }
 }

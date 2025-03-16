@@ -15,6 +15,15 @@ export class AlgorithmService {
    */
   binarySearch(inputArray: number[], target: number) {
     try {
+      // Ensure input array is sorted
+      const isSorted = inputArray.every(
+        (val, i, arr) => i === 0 || arr[i - 1] <= val,
+      );
+
+      if (!isSorted) {
+        throw new Error('Input array must be sorted in ascending order');
+      }
+
       let startIndex = 0;
       let endIndex = inputArray.length - 1;
       let output = -1;

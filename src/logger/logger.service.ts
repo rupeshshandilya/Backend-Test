@@ -28,10 +28,31 @@ export class LoggerService extends ConsoleLogger {
         },
       });
 
-      this.log(
-        `Algorithm: ${algorithmName} | Input: ${JSON.stringify(input)} | Output: ${JSON.stringify(output)}`,
-      );
+      const logEntry = {
+        level: 'log',
+        pid: process.pid,
+        timestamp: Date.now(),
+        message: `Algorithm: ${algorithmName} executed`,
+        context: 'AlgorithmLogger',
+        details: {
+          algorithmName,
+          input,
+          output,
+        },
+      };
+
+      this.log(logEntry);
     } catch (error) {
+      this.log(
+        JSON.stringify({
+          level: 'error',
+          pid: process.pid,
+          timestamp: Date.now(),
+          message: `Failed to log algorithm execution`,
+          context: 'AlgorithmLogger',
+          error: error.message,
+        }),
+      );
       this.error(`Failed to log algorithm execution: ${error.message}`);
     }
   }
@@ -49,8 +70,28 @@ export class LoggerService extends ConsoleLogger {
         },
       });
 
+      this.log(
+        JSON.stringify({
+          level: 'log',
+          pid: process.pid,
+          timestamp: Date.now(),
+          message: 'Fetched all logs successfully',
+          context: 'LoggerService',
+        }),
+      );
+
       return logs;
     } catch (error) {
+      this.log(
+        JSON.stringify({
+          level: 'error',
+          pid: process.pid,
+          timestamp: Date.now(),
+          message: 'Failed to retrieve logs',
+          error: error.message,
+          context: 'LoggerService',
+        }),
+      );
       throw new Error(`Failed to retrieve logs: ${error.message}`);
     }
   }
@@ -61,12 +102,35 @@ export class LoggerService extends ConsoleLogger {
    * @param algorithmName - The name of the algorithm to filter logs.
    * @returns A list of logs corresponding to the given algorithm name.
    */
+  //   Get by context change this
   async getLogsByAlgorithmName(algorithmName: string) {
     try {
-      return await this.prisma.algorithmLog.findMany({
+      const logs = await this.prisma.algorithmLog.findMany({
         where: { algorithmName },
       });
+
+      this.log(
+        JSON.stringify({
+          level: 'log',
+          pid: process.pid,
+          timestamp: Date.now(),
+          message: `Fetched logs for algorithm: ${algorithmName}`,
+          context: 'LoggerService',
+        }),
+      );
+
+      return logs;
     } catch (error) {
+      this.log(
+        JSON.stringify({
+          level: 'error',
+          pid: process.pid,
+          timestamp: Date.now(),
+          message: `Failed to fetch logs for algorithm: ${algorithmName}`,
+          error: error.message,
+          context: 'LoggerService',
+        }),
+      );
       throw new Error(`Failed to fetch logs: ${error.message}`);
     }
   }
