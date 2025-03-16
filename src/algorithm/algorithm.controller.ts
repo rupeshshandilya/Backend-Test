@@ -1,9 +1,5 @@
-import {
-  Body,
-  Controller,
-  Post,
-} from '@nestjs/common';
-import { AlgorithmDto, BinarySearchDto } from './dto/alogrithm.dto';
+import { Body, Controller, Post } from '@nestjs/common';
+import { AlgorithmDto, BfsDto, BinarySearchDto } from './dto/alogrithm.dto';
 import { AlgorithmService } from './algorithm.service';
 
 /**
@@ -37,5 +33,17 @@ export class AlgorithmController {
     const { inputArray } = algorithmDto;
 
     return { result: this.algorithmService.quickSort(inputArray) };
+  }
+
+  /**
+   * Endpoint to perform BFS traversal on a graph.
+   *
+   * @param bfsDto - DTO containing the adjacency list and number of vertices
+   * @returns The BFS traversal order
+   */
+  @Post('bfs')
+  bfsTraversal(@Body() bfsDto: BfsDto) {
+    const { adjacencyList } = bfsDto;
+    return { result: this.algorithmService.bfsTraversal(adjacencyList) };
   }
 }

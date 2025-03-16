@@ -27,3 +27,16 @@ export class BinarySearchDto extends AlgorithmDto {
   @IsNotEmpty({ message: 'Target value is required' })
   target: number;
 }
+
+/**
+ * DTO for BFS algorithm, representing an adjacency list graph.
+ */
+export class BfsDto {
+  /**
+   * The adjacency list representation of the graph.
+   * Each index represents a node, and its value is an array of connected nodes.
+   */
+  @IsArray()
+  @IsNotEmpty({ message: 'Adjacency list cannot be empty' })
+  adjacencyList: number[][];
+}

@@ -164,4 +164,80 @@ export class AlgorithmService {
     }
     return pivotIndex;
   }
+
+  /**
+   * Performs a Breadth-First Search (BFS) traversal on a graph.
+   * Traverses all connected components and logs the traversal order.
+   *
+   * @param adj - Adjacency list representation of the graph
+   * @returns An array representing the BFS traversal order
+   */
+  bfsTraversal(adj: number[][]): number[] {
+    try {
+      // Validate input: Check if the adjacency list is a valid non-empty array
+      if (!Array.isArray(adj) || adj.length === 0) {
+        throw new Error('Invalid adjacency list: Graph cannot be empty');
+      }
+
+      // Number of vertices in the graph
+      const V = adj.length;
+
+      // Stores BFS traversal order
+      const res: number[] = [];
+
+      const visited = new Array(V).fill(false);
+
+      // Perform BFS for every unvisited node
+      for (let i = 0; i < V; i++) {
+        if (!visited[i]) {
+          this.bfsOfGraph(adj, i, visited, res);
+        }
+      }
+
+      // Log algorithm execution details
+      this.loggerService.logAlgorithmExecution(
+        'Breadth-First Search (BFS)',
+        { graph: adj },
+        { traversalOrder: res },
+      );
+
+      return res;
+    } catch (error) {
+      throw new Error(`BFS Traversal failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * BFS traversal from a given source node.
+   *
+   * @param adj - Adjacency list representation of the graph
+   * @param s - The starting node for BFS traversal
+   * @param visited - Array to track visited nodes
+   * @param res - Stores the BFS traversal order
+   */
+  private bfsOfGraph(
+    adj: number[][],
+    s: number,
+    visited: boolean[],
+    res: number[],
+  ) {
+    // Queue for BFS traversal
+    const queue: number[] = [];
+    visited[s] = true;
+    queue.push(s);
+
+    while (queue.length > 0) {
+      // Dequeue a node
+      const curr = queue.shift()!;
+      res.push(curr);
+
+      // Visit all unvisited adjacent nodes
+      for (const neighbor of adj[curr]) {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          queue.push(neighbor);
+        }
+      }
+    }
+  }
 }
