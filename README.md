@@ -12,7 +12,7 @@ Digantara Test is a backend application built with NestJS, Prisma ORM, and Postg
 
 ##### Binary Search
 
-```http
+```
   POST /algorithm/binary-search
 ```
 
@@ -25,7 +25,7 @@ Digantara Test is a backend application built with NestJS, Prisma ORM, and Postg
 
 #### Quick Sort
 
-```http
+```
   POST /algorithm/quick-sort
 ```
 
@@ -39,14 +39,14 @@ Digantara Test is a backend application built with NestJS, Prisma ORM, and Postg
 
 #### GET ALL LOGS
 
-```http
+```
   GET /logger
 ```
 - Retrieves all logs of algorithm executions.
 
 #### Get Logs by Algorithm Name
 
-```http
+```
   GET /logger/by-name
 ```
 
