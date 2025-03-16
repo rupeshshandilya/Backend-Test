@@ -6,6 +6,68 @@
 Digantara Test is a backend application built with NestJS, Prisma ORM, and PostgreSQL. It provides APIs for executing algorithms like Quick Sort, Binary Search and Breadth First Search, while logging each API call with algorithm name, input, and output for tracking and analysis. The project follows a modular structure for scalability and maintainability
 
 
+## Design Decision
+
+This section explains the key design choices made while developing this Algorithm Execution Logger project using NestJS, Prisma, and PostgreSQL.
+
+#### **Architecture**
+The project follows a modular architecture, making it scalable and maintainable.
+
+- **Algorithm Module**: Handles algorithm execution logic (Binary Search & Quick Sort).
+- **Logger Module**: Centralized logging service to track executed algorithms.
+- **Prisma ORM**: Provides efficient database interactions with PostgreSQL.
+- **DTOs & Validation**: Ensures API input is well-structured using class-validator.
+#### **Why NestJS?**
+NestJS was chosen due to its:
+- Modular structure for better organization.
+- Dependency Injection (DI) for easy service management.
+- Built-in validation & exception handling for robust APIs.
+
+#### **Algorithm Execution & Logging**
+Each algorithm execution is logged with:
+
+- **Algorithm Name** – Identifies the executed algorithm.
+- **Input Data** – Captures input parameters for traceability.
+- **Output Data** – Stores the algorithm’s computed result.
+- **Timestamp** – Enables historical tracking.
+#### **Why Prisma + PostgreSQL?**
+-  Prisma ORM simplifies database queries and migration management.
+- PostgreSQL is chosen for its scalability, reliability, and support for JSON storage.
+
+**Prisma Schema Design**
+```bash
+model AlgorithmLog {
+  id            String   @id @default(uuid())
+  algorithmName String
+  input         Json
+  output        Json
+  createdAt     DateTime @default(now())
+
+  @@index([algorithmName])
+  @@index([createdAt])
+}
+```
+
+- Indexes on ```algorithmName``` & ```createdAt``` for faster query performance.
+- JSON storage for ```input``` & ```output``` to maintain flexibility in logging various algorithms.
+
+#### **Error Handling & Validation**
+**Why Class-Validator?**
+
+Ensures API inputs are structured and prevent invalid data from reaching the service.
+
+
+```bash
+@IsArray()
+@IsNotEmpty({ message: 'Input array should not be empty' })
+@IsNumber({}, { each: true })
+inputArray: number[];
+```
+- Prevents empty/incorrect arrays from being processed.
+- Ensures target in Binary Search is a valid number.
+
+
+
 ## API Reference
 
  #### Algorithm APIs
@@ -47,7 +109,7 @@ Digantara Test is a backend application built with NestJS, Prisma ORM, and Postg
 #### Get Logs by Algorithm Name
 
 ```
-  GET /logger/by-name
+  GET /logger/:algorithmName
 ```
 
 | Parameter | Type     | Description                       |
